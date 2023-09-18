@@ -8,11 +8,23 @@ import (
 func main() {
 	var name string
 	var empty string
-	fmt.Println()
-	fmt.Println("---------------------------")
-	fmt.Println("| WELCOME TO CRICKET CLI! |")
-	fmt.Println("---------------------------\n")
+	asciiArt := `           _      _        _   
+          (_)    | |      | |  
+  ___ _ __ _  ___| | _____| |_ 
+ / __| '__| |/ __| |/ / _ \ __|
+| (__| |  | | (__|   <  __/ |_ 
+ \___|_|  |_|\___|_|\_\___|\__|`
 
+	fmt.Println(asciiArt)
+
+	colored := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 34, "| WELCOME TO CRICKET CLI! |")
+
+	fmt.Println()
+	top := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 34, "---------------------------")
+	fmt.Println(top)
+	fmt.Println(colored)
+	bottom := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 34, "---------------------------")
+	fmt.Println(bottom)
 	fmt.Println("\nEnter your name, batsman!")
 	fmt.Scanln(&name)
 
@@ -61,8 +73,13 @@ func main() {
 		case 6:
 			fmt.Printf("%v sends the ball flying out of the stadium! What a shot!\n6 RUN\nTotal runs: ", name, totalRun)
 		default:
-			fmt.Printf("OH! What a tragedy! %v has been caught out... It's a game over for him!\n", name)
-			goto RESULT
+			if totalRun%2 == 0 {
+				fmt.Printf("OH! What a tragedy! %v has been caught out... It's a game over for him!\n", name)
+				goto RESULT
+			} else {
+				fmt.Printf("OH! What a tragedy! %v has been cleaned bowled... It's a game over for him!\n", name)
+				goto RESULT
+			}
 		}
 	}
 
@@ -71,3 +88,7 @@ RESULT:
 	// fmt.Printf("Total balls played were: %d\n", name, totalRun)
 
 }
+
+//ADD OVERS
+//RANDOMISE TYPE OF BALL, WHICH WOULD DECIDE IF YOU GET OUT OR NOT
+// UC SHOULD BE RESERVED FOR SIX, SPECIFIC SHOT SHOULD DO SOMETHING SPECIFIC
